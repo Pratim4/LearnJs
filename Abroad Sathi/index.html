@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Abroad Sathi</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<div id="sidebar" class="flex flex-col gap-8 pt-10 absolute top-0 w-60 border border-gray-300 shadow-lg bg-white h-full z-50 -translate-x-full transition-transform duration-300">
+
+
+    <button class="text-white rounded-full bg-blue-600 w-30 p-2 px-3 text-sm flex flex-row gap-4 ml-3"> <img src="https://img.icons8.com/?size=100&id=rP41Qs5B77oi&format=png&color=FFFFFF" alt="" class="h-5 w-5"><p>SIGN IN</p></button>
+
+    <div class="flex flex-col gap-5 ">
+        <div class="flex flex-row gap-10 px-5"> 
+            <img src="https://img.icons8.com/?size=100&id=31757&format=png&color=4D4D4D" alt="" class="h-5 w-5">
+            <p class="text-gray-800">Discover</p>
+        </div>
+        <hr>
+        <div class="flex flex-row gap-10 px-5"> 
+            <img src="https://img.icons8.com/?size=100&id=22118&format=png&color=4D4D4D" alt="" class="h-5 w-5">
+            <p class="text-gray-800">Community</p>
+        </div>
+        <hr>
+        <div class="flex flex-row gap-10 px-5"> 
+            <img src="https://img.icons8.com/?size=100&id=t4ujSfHW9WSb&format=png&color=4D4D4D" alt="" class="h-5 w-5">
+            <p class="text-gray-800">Services</p>
+        </div>
+        <hr>
+        <div class="flex flex-row gap-10 px-5"> 
+            <img src="https://img.icons8.com/?size=100&id=67678&format=png&color=4D4D4D" alt="" class="h-5 w-5">
+            <p class="text-gray-800">More</p>
+        </div>
+        <hr>
+
+    </div>
+
+
+
+    <div></div>
+</div>
+
+<div id="navbar" class="fixed top-0 left-0 flex items-center justify-between w-full shadow-2xl h-[85px] px-6 md:px-16 bg-white z-50">
+    <div class="flex items-center gap-16 ">
+        <div class="logo flex items-center w-40">
+            <img src="./Images/logo-svg-color.svg" alt="logo">
+        </div>
+
+        <ul class=" flex flex-row gap-8 text-lg text-gray-600 hidden lg:flex" id="menu1">
+            <li class="hover:text-blue-700 cursor-pointer">Discover</li>
+            <li class="hover:text-blue-700 cursor-pointer">Community</li>
+            <li class="hover:text-blue-700 cursor-pointer">Services</li>
+            <li class="hover:text-blue-700 cursor-pointer">More</li>
+        </ul>
+    </div>
+
+    <div class="flex flex-row gap-4 hidden lg:flex " id="rightmenu">
+        <button class="text-white rounded-full bg-blue-600 w-24 p-2 text-sm">SIGN IN</button>
+        <button class="text-sm text-red-500 rounded-full border-2 p-2 border-red-500 flex items-center gap-2 justify-center">
+            <img src="https://img.icons8.com/?size=100&id=akY1YfjXKWao&format=png&color=FA5252" alt="" class="h-5 w-5">
+            DOWNLOAD APP
+        </button>
+        
+    </div>
+    <button id="ham" class="lg:hidden text-3xl focus:outline-none">
+            &#9776;
+        </button>
+      
+</div>
+
+
+
+    <div id="section1"
+        class=" w-full h-[74.5vh] bg-[url('https://d1ekoi0y96oljv.cloudfront.net/media/gallery/images/Cloud-Education-4-Photoroom-1-300x202.png')] bg-cover bg-gray-400 mt-[85px]">
+        <div class="flex flex-col gap-2 index-10 justify-center items-center py-48">
+            <h1 class="text-[35px] font-bold text-white">Cloud Education Logo</h1>
+            <p class="text-center text-[19px] font-bold text-white"><small>Cloud Education</small></p>
+            <div class="w-[90%] md:w-[600px] lg:w-[800px] relative shadow-lg mt-24 mx-auto">
+    <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="" 
+        class="absolute top-5 left-4 z-10 h-5 w-5">
+    
+    <input type="text" placeholder="Search university course"
+        class="w-full bg-white shadow-lg rounded-full p-4 px-10 items-center">
+    
+    <img src="./Images/svgviewer-output (6).svg" alt="" height="24px" width="24px"
+        class="absolute top-4 right-4">
+</div>
+        </div>
+
+    </div>
+
+
+    <div id="section2" class="flex flex-col gap-5 p-15 ">
+        <div class="flex flex-row justify-between">
+            <div class="colleges flex flex-col gap-1">
+                <p class="text-[gray] text-lg">Showing results for</p>
+                <p class="text-xl"><b>All Colleges and Universities</b></p>
+            </div>
+
+            <div>
+                <label for="Sort" class="text-lg">Sort By: &nbsp;</label>
+
+                <select id="sort" class="border-2 border-[blue] p-1.5 pl-2 rounded-sm text-lg">
+                    <option value="fee(low-high)">Fee(low-high)</option>
+                    <option value="fee(high-low)">Fee(high-low)</option>
+
+                </select>
+            </div>
+
+
+        </div>
+
+
+        <div id="cards" class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 ">
+            
+                
+                </div>
+
+        
+        </div>
+
+    </div>
+    <script>
+
+        let apiFetch = fetch('https://v2.cloudedu.com.au/api/university-course/?limit=102&offset=0&ordering=fee_per_year');
+
+        apiFetch.then(objects => {
+            return objects.json();
+        })
+
+            .then(data => {
+                data.results.forEach(course => {
+                    let card = `
+                    <div id="card-container" class="border-1 border-gray-300 h-[260px] rounded-2xl shadow-lg hover:border-[blue] hover:border-2 hover:-translate-y-1  duration-300">
+                <div class="flex flex-row justify-between p-3">
+                    <div class="flex flex-row gap-3 ">
+                        <img src="${course.university.logo}" alt="logo" class=" rounded-full p-1 h-17 w-17 border-1 border-gray-400">
+                        <div class="flex flex-col gap-0 justify-center ">
+                            <p class="text-gray-700"><b>${course.university.name}</b></p>
+                            <p class="text-gray-500 text-md">${course.university.city}, ${course.university.country.name}</p>
+
+                        </div>
+
+                    </div>
+                    <img src="https://img.icons8.com/?size=100&id=64767&format=png&color=4D4D4D" alt="" class="h-8 w-8">
+
+                </div>
+                <hr class="text-gray-300">
+                <div class="flex flex-col gap-5 p-3">
+                    <div class="flex flex-col">
+                        <p class="text-gray-600 text-[15px]">Course Name</p>
+                        <p class="text-gray-700"><b>${course.course.name}</b></p>
+
+                    </div>
+
+                    <div class="flex flex-row gap-2">
+                        
+                        <div class="flex flex-col ">
+                            <p><small class="text-gray-400">Fee per year</small></p>
+                            <p><small><b class="text-gray-400">${course.fee_per_year_currency} ${course.fee_per_year}</b></small></p>
+                        </div>
+                        <div class="flex flex-col ">
+                            <p><small class="text-gray-400">Duration</small></p>
+                            <p><small><b class="text-gray-400">${course.duration} Year</b></small></p>
+                        </div>
+                        <div class="flex flex-col ">
+                            <p><small class="text-gray-400">Degree</small></p>
+                            <p><small><b class="text-gray-400">${course.degree_type.degree}</b></small></p>
+                        </div>
+                    </div>
+                    </div>
+                
+
+            </div>`
+             document.getElementById("cards").innerHTML += card;
+                })
+            });
+
+    let ham = document.getElementById("ham");
+    let sideBar= document.getElementById("sidebar");
+
+    ham.addEventListener("click", ()=>{
+         sideBar.classList.toggle("-translate-x-full");
+         ham.classList.toggle("rounded-full");
+         ham.classList.toggle("bg-gray-400");
+         ham.classList.toggle("shadow-lg");
+         ham.classList.toggle("border-gray-400");
+         ham.classList.toggle("p-2");
+    })
+
+
+
+    </script>
+
+
+</body>
+
+</html>
