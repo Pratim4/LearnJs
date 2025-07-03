@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="relative">
+        <h1 class="text-center w-full bg-gray-100 text-xl font-medium p-4">Basic CRUD Operation</h1>
+        <div class="">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-3 flex flex-row"
+                onclick="openForm(form)" id="add-product">
+                Add Product <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 inline-block ml-2 mt-1 "
+                    viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V4a1 1 0 011-1z"
+                        clip-rule="evenodd" />
+            </button>
+            <div class="preview absolute top-0 left-0 -translate-x-full transition-transform duration-300 ease-in-out"
+                id="preview">
+
+
+            </div>
+            <div class="h-[400px]  p-4 w-[400px] bg-gray-800 rounded-lg shadow-lg text-[white] absolute top-0 left-0 -translate-x-full  transition-transform duration-300 ease-in-out"
+                id="form">
+                <input type="text" class="hidden" id="id">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-[white] text-xs font-bold mb-2"
+                            for="grid-first-name">
+                            Title
+                        </label>
+                        <input
+                            class="appearance-none  w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="title" type="text" placeholder="Product Title">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3">
+                        <label class="block uppercase tracking-wide text-xs font-bold mb-2 text-[white]"
+                            for="grid-last-name">
+                            Category
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="category" type="text" placeholder="Category">
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full px-3">
+                        <label class="block uppercase tracking-wide text-[white] text-xs font-bold mb-2"
+                            for="grid-password">
+                            Description
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="description" type="text" placeholder="Description">
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-2">
+                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-[white] text-xs font-bold mb-2"
+                            for="grid-city">
+                            Rating
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="rating" type="number" placeholder="Give a rating">
+                    </div>
+                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-[white] text-xs font-bold mb-2"
+                            for="grid-state">
+                            Price
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="price" type="number" placeholder="Price">
+
+                    </div>
+                    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-[white] text-xs font-bold mb-2" for="grid-zip">
+                            Stocks
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="stocks" type="number" placeholder="Stocks">
+                    </div>
+                </div>
+                <div class="flex items-center justify-center pt-5 w-full">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full "
+                        onclick="postProduct()" id="submit">
+                        Submit
+                    </button>
+                </div>
+
+
+            </div>
+
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-[white] uppercase bg-gray-600 dark:bg-gray-700 dark:text-gray-400 ">
+                        <tr>
+                            <th scope="col" class="p-4"></th>
+                            <th scope="col" class="p-4">Product</th>
+                            <th scope="col" class="p-4">Category</th>
+                            <th scope="col" class="p-4">Stock</th>
+                            <th scope="col" class="p-4">Rating</th>
+                            <th scope="col" class="p-4">Price</th>
+                            <th scope="col" class="p-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-data">
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            let tableData = document.getElementById('table-data');
+            let preview = document.getElementById('preview');
+            let form = document.getElementById('form');
+            let addProduct = document.getElementById('add-product');
+            function limitToFiveWords(text) {
+                return text.split(" ").slice(0, 5).join(" ");
+            }
+            async function getData() {
+                try {
+                    let data = await fetch('https://fakestoreapi.com/products');
+                    if (!data.ok) {
+                        throw new Error('Error fetching data');
+                    } else {
+                        let products = await data.json();
+                        let tableContent = products.map((product, index) => {
+                            return `
+                             <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                           <td class="px-4 py-3">${product.id}</td>
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center mr-3">
+                                    <img src="${product.image}" alt="iMac Front Image" class="h-10 w-10 mr-3">
+                                    ${limitToFiveWords(product.title)}
+
+                                </div>
+                            </th>
+                            <td class="px-4 py-3">
+                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap"> ${product.category}</span>
+                            </td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center">
+                                    
+                                    ${product.rating.count}
+                                </div>
+                            </td>
+                      
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center">
+
+                                    <span class="text-gray-500 dark:text-gray-400 ml-1"> ${product.rating.rate} </span>
+                                    <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                </div>
+                            </td>
+                    
+                            <td class="px-4 py-3">$${product.price}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center space-x-4">
+                                    <button onclick=" event.stopPropagation(); updateProduct(
+  ${product.id},
+  '${esc(product.title)}',
+  '${esc(product.category)}',
+  '${esc(product.description)}',
+  ${product.rating.rate},
+  ${product.price},
+  ${product.rating.count})" type="button" data-drawer-target="drawer-update-product" data-drawer-show="drawer-update-product" aria-controls="drawer-update-product" class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                        </svg>
+                                        Edit
+                                    </button>
+                                  
+                                    <button type="button" onclick="previewSelected(${product.id})"   data-drawer-target="drawer-read-product-advanced" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced"  class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
+                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                        </svg>
+                                        Preview
+                                    </button>
+                                    <button type="button" onclick="deleteProduct(${product.id})" data-modal-target="delete-modal" data-modal-toggle="delete-modal" class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                            `
+
+                        })
+
+                        tableData.innerHTML = tableContent.join('');
+
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+            getData();
+
+            // preview data 
+            async function previewSelected(id) {
+                try {
+                    let data = await fetch(`https://fakestoreapi.com/products/${id}`);
+                    if (!data.ok) {
+                        throw new Error('Error fetching data');
+                    } else {
+                        let product = await data.json();
+                        preview.innerHTML = `
+                         <div
+        class="w-full max-w-sm  border border-gray-200 rounded-lg shadow-sm bg-gray-800 border-gray-700 h-auto">
+        <a href="#">
+          <img class="p-8 rounded-t-lg h-[300px]" src="${product.image}" alt="product image" />
+        </a>
+        <div class="px-5 pb-5">
+          <a href="#">
+            <h5 class="text-xl font-semibold tracking-tight text-white">${product.title}</h5>
+          </a>
+          
+          <div class="flex items-center mt-2.5 mb-5">
+            <span
+              class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3 flex gap-1">Rating: ${product.rating.rate}<svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg> </span>
+            <span
+              class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3 flex gap-1">Category: ${product.category} </span>
+              
+          </div>
+          <a href="#">
+            <h5 class="text-sm font-semibold tracking-tight text-white pb-4">${product.description}</h5>
+          </a>
+          <div class="flex items-center justify-between">
+            <span class="text-3xl font-bold text-white">$${product.price}</span>
+            <a href="#"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+              to cart</a>
+          </div>
+        </div>
+      </div>
+                    `;
+
+                        preview.classList.remove('-translate-x-full');
+
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                }
+                getData();
+            }
+
+            document.addEventListener('click', function (event) {
+                if (!preview.contains(event.target)) {
+                    preview.classList.add('-translate-x-full');
+                }
+            });
+
+            addProduct.addEventListener('click', function () {
+                form.classList.remove('-translate-x-full');
+            });
+            function openForm(form) {
+                form.classList.remove('-translate-x-full');
+
+            }
+            function closeForm(form) {
+                form.classList.add('-translate-x-full');
+            }
+
+
+            document.addEventListener('click', function (event) {
+                if (!form.contains(event.target) && !addProduct.contains(event.target)) {
+                    form.classList.add('-translate-x-full');
+                }
+            });
+
+            function postProduct() {
+                let id = document.getElementById('id').value;
+                let title = document.getElementById('title').value;
+                let category = document.getElementById('category').value;
+                let description = document.getElementById('description').value;
+                let rating = document.getElementById('rating').value;
+                let price = document.getElementById('price').value;
+                let stocks = document.getElementById('stocks').value;
+                if (!title || !category || !description || !rating || !price || !stocks) {
+                    alert('Please fill all fields');
+                    return;
+                }
+                // Validate rating, price, and stocks to be numbers
+                if (isNaN(rating) || isNaN(price) || isNaN(stocks)) {
+                    alert('Rating, Price, and Stocks must be numbers');
+                    return;
+                }
+                if (rating < 0 || rating > 5) {
+                    alert('Rating must be between 0 and 5');
+                    return;
+                }
+                if (price < 0 || stocks < 0) {
+                    alert('Price and Stocks must be positive numbers');
+                    return;
+                }
+
+                let product = {
+                    title: title,
+                    category: category,
+                    description: description,
+                    rating: {
+                        rate: rating,
+                        count: stocks
+                    },
+                    price: price,
+                    image: 'https://via.placeholder.com/150'
+                };
+                submit(product);
+
+
+                async function submit(product) {
+                    if (id){
+                        try {
+                            let response = await fetch('https://fakestoreapi.com/products/' + id, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(product)
+                            });
+                            if (!response.ok) {
+                                let error = await response.text();
+                                throw new Error(error);
+                            } else {
+                                let data = await response.json();
+                                console.log(data);
+                                alert('Product updated successfully');
+                                getData();
+                                closeForm(form);
+                            }
+                        } catch (error) {
+                            console.error(error.message);
+                        }
+                    }
+                    
+                    else{
+
+                        try {
+                            let response = await fetch('https://fakestoreapi.com/products', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(product)
+                            });
+                            if (!response.ok) {
+                                let error = await response.text();
+                                throw new Error(error);
+                            } else {
+                                let data = await response.json();
+                                console.log(data);
+                                alert('Product added successfully');
+                                getData();
+                                closeForm(form);
+                            }
+                        } catch (error) {
+                            console.error(error.message);
+                        }
+                    }
+                }
+            }
+
+            document.getElementById('submit').addEventListener('click', function () {
+                document.getElementById('id').value = '';
+                document.getElementById('title').value = '';
+                document.getElementById('category').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('rating').value = '';
+                document.getElementById('price').value = '';
+                document.getElementById('stocks').value = '';
+            });
+
+            async function deleteProduct(id) {
+                try {
+                    let response = await fetch('https://fakestoreapi.com/products/' + id, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (!response.ok) {
+                        let error = await response.text();
+                        throw new Error(error);
+                    }
+                    const data = await response.json();
+                    console.log(data);
+                    getData();
+                    alert('Product deleted successfully');
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            <!-- updateproduct -->
+            async function updateProduct(id, title, category, description, rating, price, stocks) {
+                document.getElementById('id').value = id;
+                document.getElementById('title').value = title;
+                document.getElementById('category').value = category;
+                document.getElementById('description').value = description;
+                document.getElementById('rating').value = rating;
+                document.getElementById('price').value = price;
+                document.getElementById('stocks').value = stocks;
+                form.classList.remove('-translate-x-full');
+            }
+            function esc(str) {
+  return String(str).replace(/'/g, "\\'");
+}
+              
+
+
+
+
+
+        </script>
+        <script src="tailwind.js"></script>
+
+</body>
+
+</html>
